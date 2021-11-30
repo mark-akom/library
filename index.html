@@ -8,6 +8,26 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+    <div class="app-body">
+        <h1 class="heading">Online Library <button class="new-book">NEW BOOK</button></h1>
+
+        <form class="book-form">
+            <h2>Enter some details about the book:</h2>
+            <input type="text" id="title" placeholder="title">
+            <input type="text" id="author" placeholder="author">
+            <input type="text" id="pages" placeholder="pages">
+            <p>Have you finished reading <select id="read-option">
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select></p>
+            <button>Submit</button>
+        </form>
+
+        <div class="books-list">
+        </div>
+        
+    </div>
+
+    <script src="app.js"></script>
 </body>
 </html>

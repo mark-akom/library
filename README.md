@@ -1,0 +1,1 @@
+This a library project which will be built using html, css and javascript. This project will help build on my objects skills in JS.

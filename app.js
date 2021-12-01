@@ -5,14 +5,19 @@ const title = document.querySelector('#title');
 const author = document.querySelector('#author');
 const pages = document.querySelector('#pages');
 const read = document.querySelector('#read-option');
+const addBookBtn = document.querySelector('.new-book');
 
 const myLibrary = [];
 
 function Book() {
     this.title = title.value;
     this.author = author.value;
-    this.pages = pages.value;
+    this.pages = Number(pages.value);
     this.read = Boolean(Number(read.value));
+}
+
+Book.prototype.changeReadStatus = function() {
+    this.read = !(this.read);
 }
 
 function addBookToLibrary() {
@@ -20,75 +25,59 @@ function addBookToLibrary() {
     myLibrary.push(newBook);
 }
 
+function createBook(bookObj, index) {
+   return `<div class="book"><h2>${bookObj.title}</h2><p>Author: ${bookObj.author}</p><p>Pages: ${bookObj.pages}</p><p>Status: ${(bookObj.read) ? 'Completed' : 'Uncompleted'}</p><div class="btn-group"><button class="delete"  data-index="${index}">Remove</button><button class="read-toggle" data-index="${index}">${(bookObj.read) ? 'Unread' : 'Read'}</button></div></div>`
+}
+
 function displayBooks() {
-    myLibrary.forEach(book => {
-        // create the book div
-        const bookDiv = document.createElement('div');
-        bookDiv.setAttribute('class', 'book');
-
-        // create the book heading element
-        const bookTitile = document.createElement('h2');
-        bookTitile.textContent = `${book.title}`;
-        bookDiv.appendChild(bookTitile);
-
-        // create the book author
-        const author = document.createElement('p');
-        author.textContent = `Author: ${book.author}`
-        bookDiv.appendChild(author);
-
-        // create the book pages
-        const pages = document.createElement('p');
-        pages.textContent = `Pages: ${book.pages}`;
-        bookDiv.appendChild(pages);
-
-        // create the read status
-        const readStatus = document.createElement('p');
-        if(book.read) {
-            readStatus.textContent = `Status: Completed`
-        } else {
-            readStatus.textContent = `Status: Uncompleted`
-        }
-        bookDiv.appendChild(readStatus);
-
-
-        // create the buttons for the book
-
-        const btnGroups = document.createElement('div');
-        btnGroups.setAttribute('class', 'btn-group')
-
-        // the remove button
-        const removeBtn = document.createElement('button');
-        removeBtn.setAttribute('class', 'delete');
-        removeBtn.textContent = 'Remove';
-        btnGroups.appendChild(removeBtn);
-
-        // the read button
-        const readBtn = document.createElement('button');
-        readBtn.setAttribute('class', 'read-toggle');
-        if (book.read) {
-            readBtn.textContent = 'Unread';
-        } else {
-            readBtn.textContent = 'Read';
-        }
-        btnGroups.appendChild(readBtn);
-
-        // add the buttons to the book
-        bookDiv.appendChild(btnGroups);
-
-        // add the book to the book list
-
-        booksList.appendChild(bookDiv);
-    })
+    let htmlBooks = '';
+    myLibrary.forEach((book, index) => {
+        const createdBook = createBook(book, index);
+        htmlBooks += createdBook;
+    });
+    booksList.innerHTML = htmlBooks;
 }
 
 function handleSubmit(e) {
     e.preventDefault();
+    if (title.value.trim() === '' && author.value.trim() === '' && pages.value.trim() === '') {
+        alert('Please fill all fields');
+        return;
+    }
     addBookToLibrary();
     displayBooks();
+    clearForm();
 }
 
 
+function handleButtonClick(e) {
+    const elm = e.target;
+    if (elm.tagName === 'BUTTON' && elm.textContent === 'Remove') {
+        const index = Number(elm.getAttribute('data-index'));
+        myLibrary.splice(index, 1);
+        displayBooks();
+    }
+    if (elm.tagName === 'BUTTON' && elm.getAttribute('class') === 'read-toggle') {
+        const elmIndex = elm.getAttribute('data-index');
+        myLibrary[elmIndex].changeReadStatus();
+        displayBooks();
+    }
+}
+
+function clearForm() {
+    author.value = '';
+    title.value = '';
+    pages.value = '';
+    read.value = '1';
+}
+
 // events listeners
+
+addBookBtn.addEventListener('click', (e) => {
+    form.classList.toggle('show-form');
+})
+
+booksList.addEventListener('click', handleButtonClick)
 
 form.addEventListener('submit', handleSubmit);
 

@@ -29,10 +29,11 @@ body {
 }
 
 .book {
-    border: 1px solid brown;
+    border: 1px solid #D3E4CD;
     padding: 24px;
     width: 30%;
     border-radius: 4px;
+    box-shadow: 1px 1px 15px rgba(0, 0, 0, .15);
 }
 
 .book h2 {
@@ -57,6 +58,17 @@ body {
     font-size: 16px;
     border: none;
     display: block;
+    color: white;
+    border-radius: 4px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.delete {
+    background-color: #CD1818;
+}
+
+.read-toggle {
+    background-color: #2E4C6D;
 }
 
 .book-form input{
@@ -75,15 +87,21 @@ body {
     margin-top: 12px;
     font-size: 16px;
     font-family: Arial, Helvetica, sans-serif;
+    background-color: #2E4C6D;
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 4px;
 }
 
 .book-form {
     width: 80%;
     margin: auto;
-    border: 1px solid gray;
+    border: 1px solid #D3E4CD;
     padding: 40px;
     background-color: lightgray;
     border-radius: 4px;
+    display: none;
 }
 
 .book-form h2 {
@@ -98,11 +116,21 @@ body {
 
 .book-form p select {
     font-family: Arial, Helvetica, sans-serif;
+    padding: 5px;
 }
 
 .new-book {
     display: inline-block;
-    padding: 8px 16px;
+    padding: 10px 16px;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 16px;
+    background-color: #2E4C6D;
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 4px;
+}
+
+.show-form {
+    display: block;
 }

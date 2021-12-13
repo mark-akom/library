@@ -9,19 +9,21 @@ const addBookBtn = document.querySelector('.new-book');
 
 const myLibrary = [];
 
-function Book() {
-    this.title = title.value;
-    this.author = author.value;
-    this.pages = Number(pages.value);
-    this.read = Boolean(Number(read.value));
-}
+class Book {
+    constructor(title, author, pages, read) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+    }
 
-Book.prototype.changeReadStatus = function() {
-    this.read = !(this.read);
+    changeReadStatus() {
+        this.read = !(this.read);
+    }
 }
 
 function addBookToLibrary() {
-    let newBook = new Book();
+    let newBook = new Book(title.value, author.value, Number(pages.value), Boolean(Number(read.value)));
     myLibrary.push(newBook);
 }
 
